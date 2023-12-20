@@ -1,7 +1,7 @@
 
-import 'foodModel.dart';
+import 'food_model.dart';
 
-final List<FoodItem> foodItems = [
+List<FoodItem> foodItems = [
   FoodItem(
     name: 'Pizza Margherita',
     description: 'Classic pizza with tomato, mozzarella, and basil',

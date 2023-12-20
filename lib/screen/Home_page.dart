@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_ui/screen/cart.dart';
-import '../model/foodModel.dart';
-import 'home.dart';
-import '../model/food_data.dart';
+import 'package:food_delivery_ui/screen/cart_list.dart';
+import 'package:provider/provider.dart';
+import '../model/food_model.dart';
+import '../model/food_provider.dart';
+import 'food_cardDesign.dart';
 
-class FoodListPage extends StatefulWidget {
-  @override
-  State<FoodListPage> createState() => _FoodListPageState();
-}
 
-class _FoodListPageState extends State<FoodListPage> {
-  final List<FoodItem> _foodItems = foodItems;
+class FoodListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var foodProvider = Provider.of<FoodProvider>(context);
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -32,22 +29,29 @@ class _FoodListPageState extends State<FoodListPage> {
             IconButton(
               icon: Icon(Icons.shopping_cart),
               onPressed: () {
-                List<FoodItem> addedToCartItems = _foodItems.where((item) => item.addedToCart).toList();
+                List<FoodItem> addedToCartItems =
+                Provider.of<FoodProvider>(context, listen: false)
+                    .food
+                    .where((item) => item.addedToCart)
+                    .toList();
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CartPage(cartItems: addedToCartItems)),
+                  MaterialPageRoute(
+                    builder: (context) => CartPage(cartItems: addedToCartItems),
+                  ),
                 );
               },
             ),
           ],
         ),
         body: ListView.builder(
-          itemCount: _foodItems.length,
+          itemCount: foodProvider.food.length,
           itemBuilder: (context, index) {
-            return FoodItemWidget(foodItem: _foodItems[index]);
+            return FoodItemWidget(foodItem: foodProvider.food[index]);
           },
         ),
       ),
     );
   }
+
 }

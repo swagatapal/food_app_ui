@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_ui/screen/foodList.dart';
+import 'package:food_delivery_ui/screen/Home_page.dart';
+import 'package:provider/provider.dart';
+
+import 'model/food_provider.dart';
 
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => FoodProvider(),
+    child: const MyApp(),
+  ),
+  );
 }
 
 class MyApp extends StatelessWidget {

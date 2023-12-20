@@ -1,15 +1,15 @@
-// cart_page.dart
 import 'package:flutter/material.dart';
-import '../model/foodModel.dart';
+import 'package:provider/provider.dart';
+import '../model/food_model.dart';
+import '../model/food_provider.dart';
 
 class CartPage extends StatelessWidget {
   final List<FoodItem> cartItems;
-
   CartPage({required this.cartItems});
 
   @override
   Widget build(BuildContext context) {
-    int itemCount = cartItems.where((item) => item.addedToCart).length;
+    int itemCount = Provider.of<FoodProvider>(context).getCartItemCount();
 
     return Scaffold(
       appBar: AppBar(
